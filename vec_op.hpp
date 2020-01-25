@@ -9,7 +9,7 @@
 namespace vec_op {
 
 	template <class T_src, class T_dest>
-	std::vector<T_dest> cast(std::vector<T_src> &v) {
+	std::vector<T_dest> cast(const std::vector<T_src> &v) {
 		std::vector<T_dest> ans(v.size());
 		for (size_t i = 0, size = ans.size(); i < size; ++i)
 			ans[i] = (T_dest) v[i];
@@ -65,14 +65,14 @@ namespace vec_op {
 		return *std::max_element(v.begin(), v.end());
 	}
 
-	template <typename T>
+	template <class T>
 	std::vector<T> sort(const std::vector<T> &v) {
 		std::vector<T> ans = v;
 		std::sort(ans.begin(), ans.end());
 		return ans;
 	}
 
-	template <typename T>
+	template <class T>
 	std::vector<size_t> argsort(const std::vector<T> &v) {
 		std::vector<size_t> idx(v.size());
 		std::iota(idx.begin(), idx.end(), 0);
@@ -82,15 +82,37 @@ namespace vec_op {
 		return idx;
 	}
 
-	std::vector<size_t> randomIndex(size_t n) {
-		std::vector<size_t> idx(n);
+	template <class T>
+	std::vector<T> abs(const std::vector<T> &v) {
+		std::vector<T> ans = v;
+		for (T &e : ans)
+			e = (e>0) ? e: -e;
+		return ans;
+	}
+
+	template <class T>
+	std::vector<int> sign(const std::vector<T> &v) {
+		std::vector<int> ans(v.size(),0);
+		for (size_t i=0;i<v.size();++i){
+			if (v[i]<0)
+				ans[i]=-1;
+			else if (v[i]>0)
+				ans[i]=1;
+		}
+		return ans;
+	}
+
+	template<class T>
+	std::vector<T> randomIndex(T n) {
+		std::vector<T> idx(n);
 		std::iota(idx.begin(), idx.end(), 0);
 		std::random_shuffle(idx.begin(), idx.end());
 		return idx;
 	}
 
-	std::vector<size_t> range(size_t n) {
-		std::vector<size_t> idx(n);
+	template<class T>
+	std::vector<T> range(T n) {
+		std::vector<T> idx(n);
 		std::iota(idx.begin(), idx.end(), 0);
 		return idx;
 	}
@@ -362,6 +384,54 @@ std::vector<T> operator-(const std::vector<T> &v) {
 	std::vector<T> ans = v;
 	for (T &e : ans)
 		e = -e;
+	return ans;
+}
+
+template <class T>
+std::vector<bool> operator<=(const std::vector<T> &v, const T &c) {
+	std::vector<bool> ans(v.size());
+	for (size_t i = 0, size = ans.size(); i < size; ++i)
+		ans[i] = (v[i] <= c);
+	return ans;
+}
+
+template <class T>
+std::vector<bool> operator>=(const std::vector<T> &v, const T &c) {
+	std::vector<bool> ans(v.size());
+	for (size_t i = 0, size = ans.size(); i < size; ++i)
+		ans[i] = (v[i] >= c);
+	return ans;
+}
+
+template <class T>
+std::vector<bool> operator<(const std::vector<T> &v, const T &c) {
+	std::vector<bool> ans(v.size());
+	for (size_t i = 0, size = ans.size(); i < size; ++i)
+		ans[i] = (v[i] < c);
+	return ans;
+}
+
+template <class T>
+std::vector<bool> operator>(const std::vector<T> &v, const T &c) {
+	std::vector<bool> ans(v.size());
+	for (size_t i = 0, size = ans.size(); i < size; ++i)
+		ans[i] = (v[i] > c);
+	return ans;
+}
+
+template <class T>
+std::vector<bool> operator==(const std::vector<T> &v, const T &c) {
+	std::vector<bool> ans(v.size());
+	for (size_t i = 0, size = ans.size(); i < size; ++i)
+		ans[i] = (v[i] == c);
+	return ans;
+}
+
+template <class T>
+std::vector<bool> operator!=(const std::vector<T> &v, const T &c) {
+	std::vector<bool> ans(v.size());
+	for (size_t i = 0, size = ans.size(); i < size; ++i)
+		ans[i] = (v[i] == c);
 	return ans;
 }
 

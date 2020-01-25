@@ -41,6 +41,8 @@ int main() {
 	cout << "prod(v1) = " << vec_op::prod(v1) << endl;
 	cout << "min(v1) = " << vec_op::min(v1) << endl;
 	cout << "max(v1) = " << vec_op::max(v1) << endl;
+	cout << "abs(v1) = " << vec_op::abs(v1) << endl;
+	cout << "sign(v1) = " << vec_op::sign(v1) << endl;
 	cout << "cast<double, int>(v1) = " << vec_op::cast<double, int>(v1) << endl;
 	cout << "concat(v1, v2) = " << vec_op::concat(v1, v2) << endl;
 	cout << "sort(v1) = " << vec_op::sort(v1) << endl;
